@@ -43,7 +43,7 @@ c(X, W, y, beta, sigmaUU) %<-% create_example_data(n, p)
 
 ## ---- message=FALSE------------------------------------------------------
 library(glmnet)
-library(tidyverse)
+library(dplyr)
 # Lasso with cross-validation on data without measurement error
 fit1 <- cv.glmnet(X, y)
 # Lasso with cross-validation on data with measurement error
@@ -57,6 +57,7 @@ lassoEstimates <- tibble(
 
 
 ## ------------------------------------------------------------------------
+library(ggplot2)
 ggplot(lassoEstimates, aes(x = index, y = beta, color = label)) +
   geom_point() +
   xlab("p") +
@@ -64,6 +65,7 @@ ggplot(lassoEstimates, aes(x = index, y = beta, color = label)) +
   ggtitle("Measurement error leading to false positives")
 
 ## ------------------------------------------------------------------------
+library(tidyr) 
 estimatesOfNonzero <- lassoEstimates %>% 
   spread(key = label, value = beta) %>% 
   filter(`True values` != 0) %>% 
