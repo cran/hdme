@@ -3,6 +3,8 @@
 hdme
 ====
 
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/hdme)](https://cran.r-project.org/package=hdme)
+
 The goal of hdme is to provide penalized regression methods for High-Dimensional Measurement Error problems (errors-in-variables).
 
 Installation
@@ -23,16 +25,28 @@ devtools::install_github("osorensen/hdme")
 
 ### Note when installing on macOS
 
-`hdme` depends on `Rglpk`. In order to install `Rglpk` on macOS, you may need to first install `GLPK` by issuing on the command line.
+The package `Rglpk` is suggested when installing `hdme`. In order to install `Rglpk` on macOS, you may need to first install `GLPK` by issuing the following statement on the command line:
 
 ``` bash
 brew install glpk
 ```
 
-Then install `Rglpk` using
+Then install `Rglpk`:
 
 ``` r
 install.packages("Rglpk")
+```
+
+If you are not able to install `Rglpk`, then please install the suggested package `lpSolveAPI` instead, using the command
+
+``` r
+install.packages("lpSolveAPI")
+```
+
+The functions in `hdme` that use `Rglpk`, will switch to `lpSolveAPI` automatically if the former is not available. When either `Rglpk` or `lpSolveAPI` is installed, then install the **development version** of `hdme` using
+
+``` r
+devtools::install_github("osorensen/hdme")
 ```
 
 Methods
