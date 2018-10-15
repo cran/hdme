@@ -64,7 +64,7 @@ ggplot(lassoEstimates, aes(x = index, y = beta, color = label)) +
   theme(legend.title=element_blank()) + 
   ggtitle("Measurement error leading to false positives")
 
-## ------------------------------------------------------------------------
+## ---- message=FALSE, warning=FALSE---------------------------------------
 library(tidyr) 
 estimatesOfNonzero <- lassoEstimates %>% 
   spread(key = label, value = beta) %>% 

@@ -1,7 +1,7 @@
 Package: hdme
 Type: Package
 Title: High-Dimensional Regression with Measurement Error
-Version: 0.2.0
+Version: 0.2.1
 Encoding: UTF-8
 Author: Oystein Sorensen
 Maintainer: Oystein Sorensen <oystein.sorensen.1985@gmail.com>
@@ -24,6 +24,6 @@ Suggests: Rglpk (>= 0.6-1), lpSolveAPI (>= 5.5.2.0-17), knitr,
 VignetteBuilder: knitr
 LinkingTo: Rcpp, RcppArmadillo
 NeedsCompilation: yes
-Packaged: 2018-05-19 10:17:15 UTC; oyste
+Packaged: 2018-10-15 12:36:39 UTC; oyss
 Repository: CRAN
-Date/Publication: 2018-05-19 10:31:39 UTC
+Date/Publication: 2018-10-15 13:00:03 UTC
