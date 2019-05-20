@@ -8,8 +8,8 @@
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/hdme)](https://cran.r-project.org/package=hdme)
 [![Build
 Status](https://travis-ci.org/osorensen/hdme.svg?branch=master)](https://travis-ci.org/osorensen/hdme)
-[![Codecov test
-coverage](https://codecov.io/gh/osorensen/hdme/branch/master/graph/badge.svg)](https://codecov.io/gh/osorensen/hdme?branch=master)
+[![codecov](https://codecov.io/gh/osorensen/hdme/branch/master/graph/badge.svg)](https://codecov.io/gh/osorensen/hdme)
+[![DOI](http://joss.theoj.org/papers/10.21105/joss.01404/status.svg)](https://doi.org/10.21105/joss.01404)
 <!-- badges: end -->
 
 The goal of hdme is to provide penalized regression methods for
@@ -30,6 +30,25 @@ You can install the latest development version from github with:
 devtools::install_github("osorensen/hdme", build_vignettes = TRUE)
 ```
 
+### Dependency on Rglpk
+
+`hdme` uses the [Rglpk
+package](https://cran.r-project.org/package=Rglpk), which requires the
+GLPK library package to be installed. On some platforms this requires a
+manual installation.
+
+On Debian/Ubuntu, you might use:
+
+``` sh
+sudo apt-get install libglpk-dev
+```
+
+On macOS, you might use:
+
+``` sh
+brew install glpk
+```
+
 ## Methods
 
 hdme provides implementations of the following algorithms:
@@ -46,6 +65,13 @@ The methods implemented in the package include
   - Matrix Uncertainty Lasso for Generalized Linear Models (Sorensen et
     al. (2018))
   - Generalized Dantzig Selector (James and Radchenko (2009))
+
+## Contributions
+
+Contributions to `hdme` are very welcome. If you have a question or
+suspect you have found a bug, please [open an
+Issue](https://github.com/osorensen/hdme/issues). Code contribution by
+pull requests are also appreciated.
 
 ## References
 

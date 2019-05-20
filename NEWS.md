@@ -1,5 +1,28 @@
+# hdme 0.3.1
+
+- Added case weighting to `gds` and `gmus`.
+
+# hdme 0.3.0
+
+- This release contains all changes since 0.2.3, as listed under the headings below.
+
+# hdme 0.2.3.9001
+
+## S3 methods
+
+- Added coef methods `coef.corrected_lasso`, `coef.gds`, `coef.gmu_lasso`, and `coef.gmus`. 
+- Added print methods `print.corrected_lasso`, `print.cv_corrected_lasso`, `print.gds`, `print.gmu_lasso`, and `print.gmus`.
+- Improved `plot.corrected_lasso` to also handle the case of a single regularization parameter.
+
+## Dependencies
+
+- Figured out how to install `Rglpk` on travis CI, so now this package is back in **Imports**, and `lpSolveAPI` is no longer used.
+
+# hdme 0.2.3.9000
+- It turns out that travis CI is not able to install `Rglpk`. Hence, for the development version `Rglpk` is back in **Suggests**, together with `lpSolveAPI`.
+
 # hdme 0.2.3
-- Added `Rglpk` back to **Imports** and removed **lpSolveAPI**, as the latest version of `Rglpk` passes all tests on CRAN, including osX.
+- Added `Rglpk` back to **Imports** and removed `lpSolveAPI`, as the latest version of `Rglpk` passes all tests on CRAN, including osX.
 - Updated vignette.
 - Cleaned up documentation, hiding internal functions from the index.
 - Created unit tests.

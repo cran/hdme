@@ -11,15 +11,15 @@
 double softThres(double a, double b);
 
 // [[Rcpp::export]]
-arma::vec fit_mu_lasso(arma::vec omega, double gamma, arma::mat W, arma::vec z, arma::vec betaInit, bool activeSet){
+arma::vec mu_lasso(arma::vec omega, double gamma, arma::mat W, arma::vec z, arma::vec betaInit, bool activeSet){
   // We assume the first column of W is ones, which represent the intercept
   arma::vec beta = betaInit;
   arma::vec betaOld = betaInit;
   int p = W.n_cols;
   int n = W.n_rows;
-  int maxit = 10000;
   double epsilon = 1e-7, error = 10;
   double a,b, denom, numerator;
+  int maxit = 1000;
 
   int i=0, j;
   while((i < maxit) & (error > epsilon)){
@@ -47,11 +47,8 @@ arma::vec fit_mu_lasso(arma::vec omega, double gamma, arma::mat W, arma::vec z, 
     betaOld = beta;
     ++i;
   }
-  if(i < maxit){
-    // Commenting out because it gets annoying.
-    //Rcpp::Rcout << "Coordinate descent converged after " << i << " iterations." << std::endl;
-  } else {
-    Rcpp::Rcout << "Coordinate descent did not converge." << std::endl;
+  if(i >= maxit){
+    Rcpp::Rcout << "Coordinate descent did not converge.\n";
   }
 
   return beta;

@@ -6,9 +6,9 @@
 #' @param delta Additional regularization parameter, bounding the measurement
 #'   error.
 #' @param family "gaussian" for linear regression, "binomial" for logistic
-#'   regression or "poisson" for Poisson regression.
-#' @return List object with intercept and coefficients at the values of lambda
-#'   and delta specified, as well as regularization parameters.
+#'   regression or "poisson" for Poisson regression. Defaults go "gaussian".
+#' @param weights A vector of weights for each row of \code{X}.
+#' @return An object of class "gmus".
 #' @references \insertRef{rosenbaum2010}{hdme}
 #'
 #'   \insertRef{sorensen2018}{hdme}
@@ -26,26 +26,39 @@
 #' # Response
 #' y <- X %*% beta + rnorm(n, sd = 1)
 #' # Run the MU Selector
-#' gmus1 <- fit_gmus(W, y)
+#' fit1 <- gmus(W, y)
 #' # Draw an elbow plot to select delta
-#' plot(gmus1)
+#' plot(fit1)
+#' coef(fit1)
 #'
 #' # Now, according to the "elbow rule", choose
 #' # the final delta where the curve has an "elbow".
 #' # In this case, the elbow is at about delta = 0.08,
 #' # so we use this to compute the final estimate:
-#' gmus2 <- fit_gmus(W, y, delta = 0.08)
+#' fit2 <- gmus(W, y, delta = 0.08)
 #' # Plot the coefficients
-#' plot(gmus2)
+#' plot(fit2)
+#' coef(fit2)
+#' coef(fit2, all = TRUE)
 #'
 #' @export
-fit_gmus <- function(W, y, lambda = NULL, delta = NULL,
-                     family = c("gaussian", "binomial", "poisson")) {
+gmus <- function(W, y, lambda = NULL, delta = NULL,
+                     family = "gaussian", weights = NULL) {
 
-  family <- match.arg(family)
+  family <- match.arg(family, choices = c("gaussian", "binomial", "poisson"))
 
-  if(is.null(lambda)) lambda <- glmnet::cv.glmnet(W, y, family = family)$lambda.min
-  if(is.null(delta)) delta <- seq(from = 0, to = 0.5, by = 0.02)
+  if(!is.null(weights) & length(weights) != nrow(W)) stop("weights vector must be one value per case")
+
+  if(is.null(lambda)) {
+    lambda <- glmnet::cv.glmnet(W, y, family = family)$lambda.min
+  } else {
+    stopifnot(all(lambda >= 0))
+  }
+  if(is.null(delta)) {
+    delta <- seq(from = 0, to = 0.5, by = 0.02)
+  } else {
+    stopifnot(all(delta >= 0))
+  }
 
   n <- dim(W)[1]
   p <- dim(W)[2] + 1
@@ -54,19 +67,18 @@ fit_gmus <- function(W, y, lambda = NULL, delta = NULL,
   W <- cbind(rep(1,n), W)
 
   if(family == "gaussian") {
-    fit <- sapply(delta, function(delta, W, y, lambda) musalgorithm(W, y, lambda, delta),
-                  W, y, lambda)
+    fit <- sapply(delta, function(delta) musalgorithm(W, y, lambda, delta, weights))
   } else if(family %in% c("binomial", "poisson")) {
-    fit <- sapply(delta, function(delta, W, y, lambda) mus_glm(W, y, lambda, delta), W, y, lambda)
+    fit <- sapply(delta, function(delta) mus_glm(W, y, lambda, delta, family, weights))
   }
 
 
   fit <- list(intercept = fit[1, ],
-              beta = fit[2:p, ] / scales,
+              beta = matrix(fit[2:p, ] / scales, nrow = p - 1),
               family = family,
               delta = delta,
               lambda = lambda,
-              num_non_zero = colSums(fit[2:p, , drop = FALSE] > 0)
+              num_non_zero = colSums(abs(fit[2:p, , drop = FALSE]) > 1e-10)
               )
 
   class(fit) <- "gmus"
