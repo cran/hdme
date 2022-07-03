@@ -1,3 +1,11 @@
+# hdme 0.4.0
+
+- Fixes a bug in `corrected_lasso()` with the `family = "poisson"` option. Thanks
+  to Huang Jun for discovering this.
+- Corrected a logical error in the examples, in which the variance of the measurement 
+  errors was supplied as the standard error.
+  
+
 # hdme 0.3.4
 
 - Changed to Authors(at)R notation in DESCRIPTION.

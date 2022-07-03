@@ -1,11 +1,19 @@
 corrected_lasso_glm <- function(W, y, sigmaUU, family = c("binomial", "poisson"),
-                                radii, no_radii, alpha, maxits, standardize, tol = 1e-10, maxIR = 50){
+                                radii, no_radii, alpha, maxits, tol = 1e-10, maxIR = 50){
   family <- match.arg(family)
 
   if(family == "binomial") {
-    mean_function <- logit
+    mean_function <- function(eta, betaOld, sigmaUU){
+      stats::plogis(eta - c(1/2 * t(betaOld) %*% sigmaUU %*% betaOld))
+    }
   } else if(family == "poisson") {
-    mean_function <- pois
+    mean_function <- function(eta, betaOld, sigmaUU){
+      z <- seq(from = 0, to = 20, by = 1.0)
+      vapply(eta, function(etai){
+        sum(z / factorial(z) * exp(z * etai - z^2 / 2 * c(t(betaOld) %*% sigmaUU %*% betaOld))) /
+          sum(1 / factorial(z) * exp(z * etai - z^2 / 2 * c(t(betaOld) %*% sigmaUU %*% betaOld)))
+      }, FUN.VALUE = numeric(1))
+    }
   }
 
 
@@ -31,14 +39,12 @@ corrected_lasso_glm <- function(W, y, sigmaUU, family = c("binomial", "poisson")
     s <- 0
     diff <- tol + 1
 
-    while(s <= maxIR & diff > tol){
-      tmp1vec <- sum(y - mean_function(muOld + W %*% betaOld + (y - 1/2) * as.vector(t(betaOld) %*% sigmaUU %*% betaOld )))
-
-      part1 <- y - mean_function(muOld + W %*% betaOld + (y - 1/2) * as.vector(t(betaOld) %*% sigmaUU %*% betaOld) )
+    while(s <= maxIR && diff > tol){
+      eta <- muOld + W %*% betaOld + y * c(t(betaOld) %*% sigmaUU %*% betaOld)
+      part1 <- y - mean_function(eta, betaOld, sigmaUU)
       part2 <- W + y %*% (t(betaOld) %*% sigmaUU)
-      tmp2vec <- as.vector(t(part1) %*% (part2))
-      mu <- muOld + alpha * tmp1vec
-      beta <- project_onto_l1_ball(betaOld + alpha * tmp2vec, radii[r])
+      mu <- muOld + alpha * sum(part1)
+      beta <- project_onto_l1_ball(betaOld + c(alpha * t(part1) %*% (part2)), radii[r])
       diff <- sum(abs(beta - betaOld))
 
       muOld <- mu
