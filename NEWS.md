@@ -1,3 +1,9 @@
+# hdme 0.5.0
+
+- Fixed bug in stopping condition for projected gradient descent. Thanks to Michael
+Pollmann for discovering this.
+- Fixed numerical overflow issue which happened for corrected lasso with Poisson regression.
+
 # hdme 0.4.0
 
 - Fixes a bug in `corrected_lasso()` with the `family = "poisson"` option. Thanks
