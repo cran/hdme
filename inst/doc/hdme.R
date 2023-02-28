@@ -57,9 +57,14 @@ lassoEstimates <- tibble(
 
 ## -----------------------------------------------------------------------------
 library(ggplot2)
+theme_set(theme_bw())
+theme_update(
+  panel.grid = element_blank()
+)
 ggplot(lassoEstimates, aes(x = index, y = beta, color = label)) +
   geom_point() +
   xlab("p") +
+  scale_color_brewer(type = "qualitative", palette = "Paired") +
   theme(legend.title=element_blank()) + 
   ggtitle("Measurement error leading to false positives")
 
@@ -73,6 +78,7 @@ estimatesOfNonzero <- lassoEstimates %>%
 ggplot(estimatesOfNonzero, aes(x = index, y = beta, color = label)) +
   geom_point() +
   xlab("p") +
+  scale_color_brewer(type = "qualitative", palette = "Paired") +
   theme(legend.title=element_blank()) + 
   ggtitle("Measurement error leading to attenuation")
 

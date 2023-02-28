@@ -1,6 +1,6 @@
-4e0d7c6a33f33486cc58aa593b932c9e *DESCRIPTION
+3df102947f14071ed38ec7e9dae30320 *DESCRIPTION
 7f790bc9c8d1fcc6971b2fc1acccc5f8 *NAMESPACE
-333a56ca91d368ec7b3a45b9ac244fe6 *NEWS.md
+a2c1015a2503b9028d0eed972f64d908 *NEWS.md
 bcea84077c804c944302609dae3b736f *R/RcppExports.R
 353bc93e778c3b3a6f88bfed2d2a2b0c *R/coef_methods.R
 00953b4d4f8f4de364dd334675f9f98a *R/corrected_lasso.R
@@ -27,13 +27,13 @@ e0d6a849db444360976a8b1506682e4d *R/plot.cv_gds.R
 e633c9ead977b9fd944b5be301f8d4ce *R/project_gradient.R
 3f6e6ce4207e289a24fb6c9e64c867ce *R/project_onto_l1_ball.R
 3f806fab6881b20b39c2994cc99ba6b5 *README.md
-01a868d07677778bd80a542ebdded15c *build/partial.rdb
-9d7c716616ac0be1260adad37bf7e5ff *build/vignette.rds
+bfbff6f07ccebf3b27fe0d2e0d053049 *build/partial.rdb
+f2e237f1228684effda13eaa35847792 *build/vignette.rds
 1c9b13066cc2d5acc99a5b33fa48a949 *inst/CITATION
 1183980166281e31fbd26d78925b140f *inst/REFERENCES.bib
-e192eecd4c579ec4c9fff3003cf8e0b6 *inst/doc/hdme.R
-fa6ce0c13fade5f909572cc45c56b752 *inst/doc/hdme.Rmd
-8dea914d8ff93f4078cb2037edd4d9c9 *inst/doc/hdme.html
+5f9aaedb05ad098b65098fc476623f73 *inst/doc/hdme.R
+1201275880e4c13c4202c54205ff3f30 *inst/doc/hdme.Rmd
+a461c9679da065f819dcabc88c11d28a *inst/doc/hdme.html
 df477cfa61b3783506288b85a8eab5ac *inst/figures/baseplot.png
 fa53e1b847f6f78c6cdb5c51a57b0dc6 *man/coef.corrected_lasso.Rd
 7e4913700c225f56c86994ed03be5338 *man/coef.gds.Rd
@@ -60,8 +60,8 @@ bfc8b5971cdf297d471f35ffe4ebcc52 *man/print.cv_corrected_lasso.Rd
 863fa090f9ab5c20d3e94b53d318c30c *man/print.gds.Rd
 dd065a85dd82910865f3345aa6ae20ae *man/print.gmu_lasso.Rd
 f0f760e6bc4e4bb8537d33ffb8f96ca2 *man/print.gmus.Rd
-6b2d68262c024bb4fb1399c8671b0c24 *src/Makevars
-13b03cd3dd721948c30479759060bb49 *src/Makevars.win
+b80e0037baae365f927a0efa3380e653 *src/Makevars
+49525aabbb19b852788b228e3abccace *src/Makevars.win
 eb837353d17007ad311e8b64591bebef *src/RcppExports.cpp
 a7837e58c4486dc615cb9c2b505e0e88 *src/mu_lasso.cpp
 dbeaf098866853f5fd4e31189186d725 *tests/testthat.R
@@ -72,4 +72,4 @@ d96abed44829eaa7f6d190dd4aef943d *tests/testthat/test_corrected_lasso.R
 e934718e81983842752d294271e1a1b7 *tests/testthat/test_gmu_lasso.R
 b57b92ca15bd462376cd8fef2aaac967 *tests/testthat/test_gmus.R
 ac4ee286c86d82ea8f28c4e852e34bbc *tests/testthat/test_plots.R
-fa6ce0c13fade5f909572cc45c56b752 *vignettes/hdme.Rmd
+1201275880e4c13c4202c54205ff3f30 *vignettes/hdme.Rmd
